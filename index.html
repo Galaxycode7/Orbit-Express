@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orbit-Express</title>
+    <title>RailPulse</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background: linear-gradient(180deg, #1e3a8a 0%, #000000 100%); min-height: 100vh; color: white; font-family: sans-serif; }
@@ -15,7 +15,7 @@
     <header class="p-6"><h1 class="text-2xl font-bold">RailPulse</h1></header>
 
     <main class="px-6">
-        <input id="trainSearch" type="text" placeholder="Press Enter to Load Data..." class="w-full p-4 rounded-2xl bg-white/10 border border-white/20 outline-none mb-6">
+        <input id="trainSearch" type="text" placeholder="Enter Station Code (e.g. NDLS)..." class="w-full p-4 rounded-2xl bg-white/10 border border-white/20 outline-none mb-6">
         <div id="resultCard" class="glass-card p-6 rounded-3xl hidden">
             <h2 id="trainName" class="text-xl font-bold mb-2">Loading...</h2>
             <p id="trainStatus" class="text-sm opacity-60">Connecting...</p>
@@ -31,7 +31,8 @@
 
     <script>
         async function fetchData() {
-            const url = 'https://irctc1.p.rapidapi.com/api/v3/getLiveStation?hours=1';
+            const stationCode = document.getElementById('trainSearch').value || 'NDLS';
+            const url = `https://irctc1.p.rapidapi.com/api/v3/getLiveStation?hours=1`;
             const options = {
                 method: 'GET',
                 headers: {
@@ -41,13 +42,15 @@
             };
             
             document.getElementById('resultCard').classList.remove('hidden');
+            document.getElementById('trainName').innerText = "Fetching...";
+            
             try {
                 const response = await fetch(url, options);
                 const data = await response.json();
-                document.getElementById('trainName').innerText = "Data Received";
-                document.getElementById('trainStatus').innerText = "Connected to Server!";
+                document.getElementById('trainName').innerText = data.data.station_name;
+                document.getElementById('trainStatus').innerText = "Status: Live Data Loaded";
             } catch (err) {
-                document.getElementById('trainStatus').innerText = "Connection Error.";
+                document.getElementById('trainStatus').innerText = "Error: Could not load data.";
             }
         }
 
