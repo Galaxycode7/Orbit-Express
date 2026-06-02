@@ -1,35 +1,49 @@
- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orbit-Express | Rail Intelligence</title>
+    <title>Orbit-Express | RailPulse</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background: linear-gradient(135deg, #0f172a, #000); color: white; font-family: sans-serif; min-height: 100vh; }
-        .card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        body { background: linear-gradient(180deg, #1e3a8a 0%, #000000 100%); min-height: 100vh; color: white; font-family: sans-serif; }
+        .glass-card { background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .nav-glass { background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(20px); border-top: 1px solid rgba(255, 255, 255, 0.1); }
     </style>
 </head>
-<body class="p-4">
-    <div class="max-w-lg mx-auto">
-        <h1 class="text-2xl font-bold mb-6 text-sky-400">RailPulse</h1>
-        
-        <input type="text" placeholder="Search train or station..." class="w-full p-4 rounded-2xl bg-white/10 border border-white/10 mb-6 focus:ring-2 focus:ring-sky-500 outline-none">
+<body class="pb-24">
 
-        <div class="card p-6 rounded-3xl">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold">Venad Express</h2>
-                <span class="text-green-400 text-sm font-bold bg-green-400/10 px-3 py-1 rounded-full">ON TIME</span>
-            </div>
-            <div class="flex justify-between text-gray-400 text-sm">
-                <span>05:45 TVC</span>
-                <span>12:50 SRR</span>
-            </div>
-            <div class="h-2 w-full bg-black/30 rounded-full mt-4 overflow-hidden">
-                <div class="h-full bg-sky-500 w-3/4"></div>
-            </div>
+    <header class="p-6">
+        <h1 class="text-2xl font-bold tracking-tight">RailPulse</h1>
+        <p class="text-sky-400 text-sm">Real-time Train Intelligence</p>
+    </header>
+
+    <main class="px-6">
+        <input id="trainSearch" type="text" placeholder="Enter Train Number..." class="w-full p-4 rounded-2xl bg-white/10 border border-white/20 outline-none mb-6 text-white placeholder-white/30 focus:border-sky-500 transition">
+        
+        <div id="resultCard" class="glass-card p-6 rounded-3xl hidden">
+            <h2 id="trainName" class="text-xl font-bold mb-2">Fetching Data...</h2>
+            <p id="trainStatus" class="text-sm opacity-60">Connecting to secure rail network...</p>
         </div>
-    </div>
+    </main>
+
+    <nav class="nav-glass fixed bottom-0 w-full p-4 flex justify-around rounded-t-3xl">
+        <div class="text-center opacity-100">🔍<br><span class="text-[10px]">Search</span></div>
+        <div class="text-center opacity-50">📍<br><span class="text-[10px]">Live Map</span></div>
+        <div class="text-center opacity-50">🎫<br><span class="text-[10px]">PNR</span></div>
+        <div class="text-center opacity-50">🏢<br><span class="text-[10px]">Station</span></div>
+    </nav>
+
+    <script>
+        document.getElementById('trainSearch').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                const trainNo = this.value;
+                const card = document.getElementById('resultCard');
+                card.classList.remove('hidden');
+                document.getElementById('trainName').innerText = "Train #" + trainNo;
+                document.getElementById('trainStatus').innerText = "System verifying schedules... Please wait.";
+            }
+        });
+    </script>
 </body>
 </html>
