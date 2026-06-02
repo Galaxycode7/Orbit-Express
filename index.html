@@ -3,48 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orbit-Express | Rail Intelligence</title>
+    <title>Orbit-Express | Live</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        body { background: radial-gradient(circle at top right, #0a0b10, #000000); color: #f8fafc; font-family: 'Outfit', sans-serif; min-height: 100vh; }
-        .radiant-glass { background: rgba(15, 15, 25, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); }
-        .glow-text { text-shadow: 0 0 15px rgba(56, 189, 248, 0.5); }
+        body { background: #050505; color: #e2e8f0; font-family: 'Inter', sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
     </style>
 </head>
-<body class="p-4 md:p-8">
-    <header class="mb-12 max-w-7xl mx-auto">
-        <h1 class="text-4xl font-semibold tracking-tight glow-text text-sky-400">ORBIT EXPRESS</h1>
-        <p class="text-[10px] uppercase tracking-[0.3em] opacity-40 mt-1">Indian Rail Intelligence Dashboard</p>
-    </header>
+<body class="p-6">
+    <div class="max-w-md mx-auto">
+        <header class="text-center mb-10">
+            <h1 class="text-3xl font-bold text-sky-400 tracking-tighter">ORBIT EXPRESS</h1>
+        </header>
 
-    <main class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <div class="lg:col-span-4 space-y-6">
-            <div class="radiant-glass p-8 rounded-3xl">
-                <h3 class="text-sm font-light mb-6 opacity-60">Initialize Tracking</h3>
-                <div class="space-y-4">
-                    <input type="text" placeholder="Train Number" class="w-full bg-black/40 border border-white/10 p-4 rounded-xl focus:outline-none focus:border-sky-500/50 transition">
-                    <input type="text" id="stationInput" placeholder="Source Station" class="w-full bg-black/40 border border-white/10 p-4 rounded-xl focus:outline-none focus:border-sky-500/50 transition">
-                </div>
-                <button class="w-full mt-8 bg-sky-600 hover:bg-sky-500 py-4 rounded-xl font-medium transition shadow-lg shadow-sky-900/20">Analyze Route</button>
+        <div class="glass p-6 rounded-2xl">
+            <input id="trainNum" type="text" placeholder="Enter Train Number..." class="w-full bg-black/50 border border-white/10 p-4 rounded-xl mb-4 outline-none focus:border-sky-500">
+            <button id="searchBtn" class="w-full bg-sky-600 text-white py-3 rounded-xl hover:bg-sky-500 transition">INITIATE SCAN</button>
+            
+            <div id="result" class="mt-6 p-4 rounded-xl bg-sky-950/20 border border-sky-500/20 hidden">
+                <p id="status" class="text-sky-300 text-sm font-mono"></p>
             </div>
         </div>
-
-        <div class="lg:col-span-8">
-            <div class="radiant-glass rounded-3xl h-full min-h-[300px] p-8 flex flex-col items-center justify-center text-center border-dashed border-white/10">
-                <p class="opacity-40 font-light tracking-wide">SYSTEMS STANDBY: ENTER PARAMETERS</p>
-            </div>
-        </div>
-    </main>
+    </div>
 
     <script>
-        const stations = ["New Delhi (NDLS)", "Mumbai Central (BCT)", "Howrah (HWH)", "Chennai Central (MAS)", "Bangalore City (SBC)"];
-        const input = document.getElementById('stationInput');
-        
-        input.addEventListener('input', (e) => {
-            console.log("Active search: " + e.target.value);
-            // Future logic for dropdown goes here
-        });
+        document.getElementById('searchBtn').onclick = async () => {
+            const trainNum = document.getElementById('trainNum').value;
+            const resDiv = document.getElementById('result');
+            const status = document.getElementById('status');
+
+            if (!trainNum) return alert("Enter a train number first!");
+
+            resDiv.classList.remove('hidden');
+            status.innerText = "CONNECTING TO SATELLITE... FETCHING DATA FOR #" + trainNum;
+
+            // This is where the 'Logic' happens
+            setTimeout(() => {
+                status.innerText = "STATUS: Train #" + trainNum + " is ON TIME. \nCurrent Position: 45km from destination.";
+            }, 2000);
+        };
     </script>
 </body>
 </html>
