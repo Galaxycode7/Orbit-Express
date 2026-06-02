@@ -23,8 +23,8 @@
             <div class="radiant-glass p-8 rounded-3xl">
                 <h3 class="text-sm font-light mb-6 opacity-60">Initialize Tracking</h3>
                 <div class="space-y-4">
-                    <input type="text" placeholder="Train Number (e.g. 12424)" class="w-full bg-black/40 border border-white/10 p-4 rounded-xl focus:outline-none focus:border-sky-500/50 transition">
-                    <input type="text" placeholder="Source Station" class="w-full bg-black/40 border border-white/10 p-4 rounded-xl focus:outline-none focus:border-sky-500/50 transition">
+                    <input type="text" placeholder="Train Number" class="w-full bg-black/40 border border-white/10 p-4 rounded-xl focus:outline-none focus:border-sky-500/50 transition">
+                    <input type="text" id="stationInput" placeholder="Source Station" class="w-full bg-black/40 border border-white/10 p-4 rounded-xl focus:outline-none focus:border-sky-500/50 transition">
                 </div>
                 <button class="w-full mt-8 bg-sky-600 hover:bg-sky-500 py-4 rounded-xl font-medium transition shadow-lg shadow-sky-900/20">Analyze Route</button>
             </div>
@@ -32,10 +32,19 @@
 
         <div class="lg:col-span-8">
             <div class="radiant-glass rounded-3xl h-full min-h-[300px] p-8 flex flex-col items-center justify-center text-center border-dashed border-white/10">
-                <div class="w-16 h-16 border-4 border-sky-500/20 border-t-sky-500 rounded-full animate-spin mb-4"></div>
                 <p class="opacity-40 font-light tracking-wide">SYSTEMS STANDBY: ENTER PARAMETERS</p>
             </div>
         </div>
     </main>
+
+    <script>
+        const stations = ["New Delhi (NDLS)", "Mumbai Central (BCT)", "Howrah (HWH)", "Chennai Central (MAS)", "Bangalore City (SBC)"];
+        const input = document.getElementById('stationInput');
+        
+        input.addEventListener('input', (e) => {
+            console.log("Active search: " + e.target.value);
+            // Future logic for dropdown goes here
+        });
+    </script>
 </body>
 </html>
